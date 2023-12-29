@@ -5,8 +5,15 @@ import { validate } from "@/helpers/validate";
 
 connect()
 
-export async function GET() {
+export async function GET(request: NextRequest) {
     try {
+        const getSecret = request.nextUrl.searchParams.get("secret");
+        if (getSecret != process.env.GET_SECRET) {
+            return NextResponse.json({
+                message: "Secret key do not match",
+                success: false
+            }, { status: 400 })
+        }
         const keys = await Key.find().sort({ hit: 1 });
         for (const key of keys) {
             try {
@@ -35,15 +42,20 @@ export async function GET() {
 export async function POST(request: NextRequest) {
     try {
         const reqBody = await request.json()
-
-        const { apikey, secret } = reqBody
-
+        let { apikey, secret } = reqBody
+        apikey = apikey.replace(/\s/g, '')
         const key = await Key.findOne({ apikey: apikey })
-        if (secret != process.env.SECRET) {
-            return NextResponse.json({ error: "Secret key do not match" }, { status: 400 })
+        if (secret != process.env.POST_SECRET) {
+            return NextResponse.json({
+                message: "Secret key do not match",
+                success: false
+            }, { status: 400 })
         }
         if (key) {
-            return NextResponse.json({ error: "Api key already exists" }, { status: 400 })
+            return NextResponse.json({
+                message: "Api key already exists",
+                success: false
+            }, { status: 400 })
         }
         const isValid = await validate(apikey);
         if (!isValid) {
