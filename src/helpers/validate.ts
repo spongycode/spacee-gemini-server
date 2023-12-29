@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const validate = async (apikey: String) => {
-    const url = process.env.GEMINI_ENDPOINT + apikey;
+    const url = (process.env.GEMINI_ENDPOINT as string) + apikey;
     const requestBody = {
         contents: [{
             parts: [{
