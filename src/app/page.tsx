@@ -1,7 +1,7 @@
 "use client"
 import Image from 'next/image';
 import Link from 'next/link';
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
 
 import GithubIconSvg from '/public/img/github.svg';
 import AndroidIconSvg from '/public/img/android.svg';
@@ -9,7 +9,7 @@ import AndroidIconSvg from '/public/img/android.svg';
 export default function Home() {
   return (
     <main className="flex flex-col justify-center items-center h-screen">
-      <ResponsiveImage src="/img/logo.svg" alt="Logo" width={250} height={250} />
+      <ResponsiveImage src="/img/logo.svg" alt="Logo" width={150} height={150} />
 
       <AnimatedGradientText>Spacee Gemini</AnimatedGradientText>
       <ButtonRow>
@@ -28,30 +28,36 @@ export default function Home() {
   );
 }
 
-const gradient = keyframes`
-  0% {
-    background-position: 0 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0 50%;
-  }
-`;
 
-const AnimatedGradientText = styled.h1`
-  animation: ${gradient} 5s ease-in-out infinite;
-  background: linear-gradient(to right, #2592cc, #e7e1dd, #2193b0, #6dd5ed);
+const AnimatedGradientText = styled.div`
+  display: inline-block;
+  background: -webkit-linear-gradient(-45deg, #2592cc, #e7e1dd);
   background-size: 300%;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  font-family: 'Poppins', sans-serif;
-  margin-top: 20px;
   font-size: 2.5em;
-
+  font-weight: 500;
+  font-family: 'Poppins', Arial, Helvetica, sans-serif;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: rgba(255, 255, 255, 0);
+  text-fill-color: rgba(255, 255, 255, 0);
+  animation: animated_text 5s ease-in-out infinite;
+  -moz-animation: animated_text 5s ease-in-out infinite;
+  -webkit-animation: animated_text 5s ease-in-out infinite;
+  animation: animated_text 5s ease-in-out infinite;
   @media (max-width: 768px) {
     font-size: 1.8em;
+  }
+
+  @keyframes animated_text {
+    0% {
+      background-position: 0px 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0px 50%;
+    }
   }
 `;
 
@@ -61,7 +67,7 @@ const ButtonRow = styled.div`
 
   @media (max-width: 768px) {
     flex-direction: column;
-    align-items: center; /* Center items horizontally */
+    align-items: center;
   }
 `;
 
@@ -72,8 +78,8 @@ const IconButton = styled.div`
 
 const ResponsiveImage = styled(Image)`
   @media (max-width: 768px) {
-    width: 150px; /* Adjust the desired width for the logo on mobile */
-    height: 150px; /* Adjust the desired height for the logo on mobile */
+    width: 100px; 
+    height: 100px; 
   }
 `;
 
