@@ -14,7 +14,7 @@ export default function Home() {
       <AnimatedGradientText>Spacee Gemini</AnimatedGradientText>
       <ButtonRow>
         <IconButton>
-          <Link href="https://github.com/spongycode/spacee-gemini/releases/download/1.1.0/spacee_gemini.apk" target="_blank">
+          <Link href="https://github.com/spongycode/spacee-gemini/releases/download/1.2.0/spacee_gemini.apk" target="_blank">
             <Button>Get the app <AndroidIcon /> </Button>
           </Link>
         </IconButton>
